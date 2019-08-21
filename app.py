@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, flash, redirect
-from forms import RegistrationForm, LoginForm
+from forms import InputForm
+from b2i import b2i
 
 app = Flask(__name__)
 
