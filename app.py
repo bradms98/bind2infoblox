@@ -4,7 +4,7 @@ from b2i import b2i
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = '23eb28c448bc3cafa6fafe968fa66322'
+app.config['SECRET_KEY'] = '23eb28c4c8bc3cafa6faf2968fa6f322'
 
 posts = [
     {
@@ -28,8 +28,8 @@ bindInput = 'this is the input text'
 @app.route('/home/', methods=['GET', 'POST'])
 def home():
     form = InputForm()
-    #if form.validate_on_submit():
-    flash('Received: ' + form.in_string.data)
+    if form.in_string.data:
+        flash('Received: ' + form.in_string.data, 'success')
     return render_template('home.html', form=form, title='Home')
 
 @app.route('/about')
