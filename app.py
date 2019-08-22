@@ -29,7 +29,8 @@ bindInput = 'this is the input text'
 def home():
     form = InputForm()
     if form.in_string.data:
-        flash('Received: ' + form.in_string.data, 'success')
+        converted = b2i(form.in_string.data)
+        flash('Received: ' + converted.csvOutput, 'success')
     return render_template('home.html', form=form, title='Home')
 
 @app.route('/about')
