@@ -36,6 +36,7 @@ class b2i():
             priority = ''
             weight = ''
             port = ''
+            zone = ''
         except:
             # Return a space for empty lines. We'll cull those before writing output
             # print("Skipping empty line")
@@ -112,9 +113,7 @@ class b2i():
 
     def __init__(self, bindInput):
         self.bindInput = bindInput
-        for s in bindInput.splitlines():
-            lines = s.strip() 
-    
+
         #self.csvOutput = b2i.bind2csv(bindInput)
         output = list()
 
@@ -127,16 +126,22 @@ class b2i():
         output.append('header-srvrecord,fqdn*,_new_fqdn,port*,_new_port,priority*,_new_priority,target*,_new_target,weight*,_new_weight,comment,creator,ddns_principal,ddns_protected,disabled,ttl,view,,,,,,\n')
         output.append('header-txtrecord,fqdn*,_new_fqdn,text*,_new_text,comment,creator,ddns_principal,ddns_protected,disabled,ttl,view,,,,,,,,,,,,\n')
 
+        for s in bindInput.splitlines():
+            output.append(s.strip())
+            print(s)
+
+        
+
 
         # determine the domain name we're working with
-        for line in lines:
+        for line in output:
             result = b2i.getzone(line)
             if len(result) != 0:
                 zone = result[:-1]
                 break
 
         # Read inFile and convert it according to bind2csv
-        for line in lines:
+        for line in output:
             # convert to InfoBlox' format
             newline = b2i.bind2csv(line)
             # don't append empty lines

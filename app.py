@@ -28,15 +28,14 @@ bindInput = 'this is the input text'
 @app.route('/home/', methods=['GET', 'POST'])
 def home():
     form = InputForm()
+    output = ''
     if form.in_string.data:
         converted = b2i(form.in_string.data)
-        output = ''
         for line in converted.csvOutput:
             output = output + '\n' + line
-        flash('Output: ' + output, 'danger')
-        flash('Received: ' + converted.bindInput, 'success')
-        
-    return render_template('home.html', form=form, title='Home')
+        #flash('Output: ' + output, 'danger')
+        flash('Received: \n' + converted.bindInput, 'success')
+    return render_template('home.html', form=form, output=output, title='Home')
 
 @app.route('/about')
 @app.route('/about/')
