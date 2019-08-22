@@ -1,7 +1,11 @@
 {% extends "layout.html" %}
 {% block content %} 
-    <h1>Home Page</h1>
-    <p>{{ bind }}</p>
+    <div class="media content-section">
+        <h1>Home Page</h1>
+        <div class="media-body">
+            <p>{{ bind }}</p>
+        </div>
+    </div>
 
     <!-- 
     {% for post in posts %}

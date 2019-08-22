@@ -1,3 +1,3 @@
 class b2i():
-    input = 'Default Input'
-    output = input
+    bindInput = 'Default Input'
+    csvOutput = input
