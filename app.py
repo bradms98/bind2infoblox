@@ -30,8 +30,12 @@ def home():
     form = InputForm()
     if form.in_string.data:
         converted = b2i(form.in_string.data)
+        output = ''
+        for line in converted.csvOutput:
+            output = output + '\n' + line
+        flash('Output: ' + output, 'danger')
         flash('Received: ' + converted.bindInput, 'success')
-        flash('Output: ' + converted.csvOutput, 'danger')
+        
     return render_template('home.html', form=form, title='Home')
 
 @app.route('/about')
