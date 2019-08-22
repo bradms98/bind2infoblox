@@ -23,9 +23,9 @@ posts = [
 
 bindInput = 'this is the input text'
 
-@app.route('/')
-@app.route('/home')
-@app.route('/home/')
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/home', methods=['GET', 'POST'])
+@app.route('/home/', methods=['GET', 'POST'])
 def home():
     return render_template('home.html', bindInput=bindInput, title='Home')
 

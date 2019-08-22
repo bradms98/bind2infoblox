@@ -1,7 +1,23 @@
 {% extends "layout.html" %}
 {% block content %} 
-    <article class="media content-section">
-        <h1>Home Page</h1>
+    <div class='content-section'>
+        <form method='POST' action=''>
+            <fieldset class='form-group'>
+                <legend class='border-bottom mb-4'>Login</legend>
+                <div class='form-group'>
+                    {{ form.bind.label(class='form-control-label') }}
+                    {% if form.bind.errors %}
+                        {{ form.bind(class='form-control form-control-lg is-invalid') }}
+                        <div class='invalid-feedback'>
+                            {% for error in form.bind.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.bind(class='form-control form-control-lg') }}
+                    {% endif %}
+                </div>
+            </fieldset>
         <div class="media-body">
             <p>{{ bindInput }}</p>
         </div>
