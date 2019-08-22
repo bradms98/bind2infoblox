@@ -28,6 +28,8 @@ bindInput = 'this is the input text'
 @app.route('/home/', methods=['GET', 'POST'])
 def home():
     form=InputForm()
+    if form.validate_on_submit():
+        flash("Recieved " + form.bind.data)
     return render_template('home.html', form=form, title='Home')
 
 @app.route('/about')
