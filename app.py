@@ -21,11 +21,13 @@ posts = [
     }
 ]
 
+bind = 'this is the input text'
+
 @app.route('/')
 @app.route('/home')
 @app.route('/home/')
 def home():
-    return render_template('home.html', posts=posts, title='Home')
+    return render_template('home.html', bind=bind, title='Home')
 
 @app.route('/about')
 @app.route('/about/')
