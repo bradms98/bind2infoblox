@@ -27,6 +27,7 @@ bindInput = 'this is the input text'
 @app.route('/home', methods=['GET', 'POST'])
 @app.route('/home/', methods=['GET', 'POST'])
 def home():
+    form=InputForm()
     return render_template('home.html', form=form, title='Home')
 
 @app.route('/about')
