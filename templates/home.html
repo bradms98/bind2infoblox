@@ -5,16 +5,16 @@
             <fieldset class='form-group'>
                 <legend class='border-bottom mb-4'></legend>
                 <div class='form-group'>
-                    {{ form.bind.label(class='form-control-label') }}
-                    {% if form.bind.errors %}
-                        {{ form.bind(class='form-control form-control-lg is-invalid') }}
+                    {{ form.in_string.label(class='form-control-label') }}
+                    {% if form.in_string.errors %}
+                        {{ form.in_string(class='form-control form-control-lg is-invalid') }}
                         <div class='invalid-feedback'>
-                            {% for error in form.bind.errors %}
+                            {% for error in form.in_string.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.bind(class='form-control form-control-lg') }}
+                        {{ form.in_string(class='form-control form-control-lg') }}
                     {% endif %}
                 </div>
                 <div class='form-group'>

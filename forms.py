@@ -3,7 +3,7 @@ from wtforms import TextAreaField, StringField, PasswordField, SubmitField, Bool
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 class InputForm(FlaskForm):
-    bind = TextAreaField('Paste in contents of the BIND file you want to convert', validators=[DataRequired])
+    in_string = TextAreaField('Paste in contents of the BIND file you want to convert', validators=[DataRequired])
     submit = SubmitField('Submit')
 
 class RegistrationForm(FlaskForm):
