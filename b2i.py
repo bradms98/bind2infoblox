@@ -147,4 +147,5 @@ class b2i():
                 output.append(newline.rstrip() + '\n')		
 
         # Write output
+
         self.csvOutput = output
