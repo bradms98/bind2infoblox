@@ -1,14 +1,14 @@
 class b2i():
     # strip trailing '.' character from a string. 
     # BIND uses trailing .'s in it's addresses, InfoBlox does not
-    @staticmethod
+    @staticmethod 
     def stripdot(strAddr):
         if strAddr.endswith('.'):
             return strAddr[:-1]
         else: 
             return strAddr
 
-    @staticmethod
+    @staticmethod 
     def name2fqdn(fqdn,zone):
         # convert shorthand names to fqdn
         if not fqdn.endswith('.'):
@@ -18,13 +18,30 @@ class b2i():
             fqdn = b2i.stripdot(fqdn)
         return fqdn
 
+    # get the zone name (ie: servicemaster.com) from the SOA record
+    @staticmethod 
+    def getzone(string):
+        words = string.split()
+        try:
+            recordType = words[3]
+            fqdn = words[0]
+        except:
+            return()
+        
+        # return the fqdn of the SOA record only
+        if recordType.upper() == "SOA":
+            return(fqdn)
+        else:
+            return()
+
     # Function to parse bind format lines. Returns lines in InfoBlox CSV format
     @staticmethod
     def bind2csv(string):
         # Build variables from passed-in line
+        
+        # split incoming line into a list of words separated by spaces
+        words = string.split()
         try:
-            # split incoming line into a list of words separated by spaces
-            words = string.split()
             newstring = ''
             fqdn = words[0]
             ttl = words[1]
@@ -37,9 +54,8 @@ class b2i():
             weight = ''
             port = ''
             zone = ''
-        except:
+        except Exception as e:
             # Return a space for empty lines. We'll cull those before writing output
-            # print("Skipping empty line")
             return(' ')
 
         # convert shorthand names to fqdn
@@ -94,21 +110,7 @@ class b2i():
         #return new line in correct format
         return(newstring + '\n')
 
-    # get the zone name (ie: servicemaster.com) from the SOA record
-    @staticmethod
-    def getzone(string):
-        words = string.split()
-        try:
-            recordType = words[3]
-            fqdn = words[0]
-        except:
-            return()
-        
-        # return the fqdn of the SOA record only
-        if recordType.upper() == "SOA":
-            return(fqdn)
-        else:
-            return()
+
 
 
     def __init__(self, bindInput):
@@ -127,11 +129,7 @@ class b2i():
         output.append('header-txtrecord,fqdn*,_new_fqdn,text*,_new_text,comment,creator,ddns_principal,ddns_protected,disabled,ttl,view,,,,,,,,,,,,\n')
 
         for s in bindInput.splitlines():
-            output.append(s.strip())
-            print(s)
-
-        
-
+            output.append(s.strip())        
 
         # determine the domain name we're working with
         for line in output:
