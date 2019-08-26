@@ -67,18 +67,18 @@ class b2i():
         # A records
         if recordType.upper() == "A":
             target = b2i.stripdot(words[4])
-            newstring = 'arecord' + ',' + target + ',,' + fqdn + ',,,FALSE,STATIC,,FALSE,FALSE,,External'
+            newstring = 'arecord' + ',' + target + ',,' + fqdn + ',,,FALSE,STATIC,,FALSE,FALSE,' + ttl + ',External'
         
         # CNAME records
         if recordType.upper() == "CNAME":
             target = b2i.stripdot(words[4])
-            newstring = 'cnamerecord' + ',' + fqdn + ',,' + target + ',,STATIC,,FALSE,FALSE,,External,,,,,,,,,,,,,'
+            newstring = 'cnamerecord' + ',' + fqdn + ',,' + target + ',,STATIC,,FALSE,FALSE,' + ttl + ',External,,,,,,,,,,,,,'
 
         # MX records
         if recordType.upper() == "MX":
             priority = words[4]
             target = b2i.stripdot(words[5])
-            newstring = 'mxrecord' + ',' + fqdn + ',,' + target + ',,' + priority + ',,,STATIC,,FALSE,FALSE,300,External,,,,,,,,,,'
+            newstring = 'mxrecord' + ',' + fqdn + ',,' + target + ',,' + priority + ',,,STATIC,,FALSE,FALSE,' + ttl + ',External,,,,,,,,,,'
 
         # SRV Records
         if recordType.upper() == "SRV":
@@ -86,7 +86,7 @@ class b2i():
             weight = words[5]
             port = words[6]
             target = b2i.stripdot(words[7])
-            newstring = 'srvrecord' + ',' + fqdn + ',,' + port + ',,' + priority + ',,' + target + ',,' + weight + ',,,STATIC,,FALSE,FALSE,,External,,,,,,'
+            newstring = 'srvrecord' + ',' + fqdn + ',,' + port + ',,' + priority + ',,' + target + ',,' + weight + ',,,STATIC,,FALSE,FALSE,' + ttl + ',External,,,,,,'
 
         # TXT records
         if recordType.upper() == "TXT":
@@ -99,7 +99,7 @@ class b2i():
             text = text[:-1]
             # convert double-quotes to triple-double-quotes, as needed by InfoBlox
             text = text.replace('"','"""',)
-            newstring = 'txtrecord' + ',' + fqdn + ',,' + text + ',,,STATIC,,FALSE,FALSE,,External,,,,,,,,,,,,'
+            newstring = 'txtrecord' + ',' + fqdn + ',,' + text + ',,,STATIC,,FALSE,FALSE,' + ttl + ',External,,,,,,,,,,,,'
         
         # TODO: Handle any other record types not handled above
         # Right now, nothing else is required 
@@ -135,8 +135,7 @@ class b2i():
         for line in temp:
             result = b2i.getzone(line)
             if len(result) != 0:
-                zone = result[:-1]
-                self.zone = zone
+                self.zone = result[:-1]
                 break
 
         # Read inFile and convert it according to bind2csv
