@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, flash, redirect
+from flask import Flask, render_template, url_for, flash, redirect, Response
 from forms import InputForm
 from b2i import b2i
 
@@ -31,11 +31,26 @@ def home():
     output = ''
     if form.in_string.data:
         converted = b2i(form.in_string.data)
-        for line in converted.csvOutput:
-            output = output + '\n' + line
+        #for line in converted.csvOutput:
+        #    output = output + '\n' + line
         #flash('Output: ' + output, 'danger')
-        flash('Received: \n' + converted.bindInput, 'success')
-    return render_template('home.html', form=form, output=output, title='Home')
+        #flash('Received: \n' + converted.bindInput, 'success')
+        return Response(
+            converted.csvOutput,
+            mimetype="text/csv",
+            headers={"Content-disposition":
+                     "attachment; filename=" + converted.zone + ".csv"})
+    else: 
+        return render_template('home.html', form=form, output=output, title='Home')
+
+
+
+
+
+
+
+
+
 
 @app.route('/about')
 @app.route('/about/')

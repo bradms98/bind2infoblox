@@ -36,7 +36,7 @@ class b2i():
 
     # Function to parse bind format lines. Returns lines in InfoBlox CSV format
     @staticmethod
-    def bind2csv(string):
+    def bind2csv(string, zone):
         # Build variables from passed-in line
         
         # split incoming line into a list of words separated by spaces
@@ -53,7 +53,6 @@ class b2i():
             priority = ''
             weight = ''
             port = ''
-            zone = ''
         except Exception as e:
             # Return a space for empty lines. We'll cull those before writing output
             return(' ')
@@ -115,7 +114,7 @@ class b2i():
 
     def __init__(self, bindInput):
         self.bindInput = bindInput
-
+        self.zone = ''
         #self.csvOutput = b2i.bind2csv(bindInput)
         output = list()
         temp = list()
@@ -137,12 +136,13 @@ class b2i():
             result = b2i.getzone(line)
             if len(result) != 0:
                 zone = result[:-1]
+                self.zone = zone
                 break
 
         # Read inFile and convert it according to bind2csv
         for line in temp:
             # convert to InfoBlox' format
-            newline = b2i.bind2csv(line)
+            newline = b2i.bind2csv(line, self.zone)
             # don't append empty lines
             if not newline.isspace():
                 output.append(newline.rstrip() + '\n')		
