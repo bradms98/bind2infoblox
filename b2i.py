@@ -118,6 +118,7 @@ class b2i():
 
         #self.csvOutput = b2i.bind2csv(bindInput)
         output = list()
+        temp = list()
 
         # setup headers
         output.append('header-arecord,address*,_new_address,fqdn*,_new_fqdn,comment,create_ptr,creator,ddns_principal,ddns_protected,disabled,ttl,view\n')
@@ -129,17 +130,17 @@ class b2i():
         output.append('header-txtrecord,fqdn*,_new_fqdn,text*,_new_text,comment,creator,ddns_principal,ddns_protected,disabled,ttl,view,,,,,,,,,,,,\n')
 
         for s in bindInput.splitlines():
-            output.append(s.strip())        
+            temp.append(s.strip())        
 
         # determine the domain name we're working with
-        for line in output:
+        for line in temp:
             result = b2i.getzone(line)
             if len(result) != 0:
                 zone = result[:-1]
                 break
 
         # Read inFile and convert it according to bind2csv
-        for line in output:
+        for line in temp:
             # convert to InfoBlox' format
             newline = b2i.bind2csv(line)
             # don't append empty lines
@@ -147,5 +148,4 @@ class b2i():
                 output.append(newline.rstrip() + '\n')		
 
         # Write output
-
         self.csvOutput = output
