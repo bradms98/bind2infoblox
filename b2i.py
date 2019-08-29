@@ -1,4 +1,5 @@
 class b2i():
+    """ Class to represent a BIND to InfoBlox CSV object. """
     # strip trailing '.' character from a string. 
     # BIND uses trailing .'s in it's addresses, InfoBlox does not
     @staticmethod 
