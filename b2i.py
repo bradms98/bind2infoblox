@@ -10,18 +10,18 @@ class b2i():
             return strAddr
 
     @staticmethod 
-    def name2fqdn(fqdn,zone):
+    def name2fqdn(fqdn,domain):
         # convert shorthand names to fqdn
         if not fqdn.endswith('.'):
-            fqdn = fqdn + '.' + zone
+            fqdn = fqdn + '.' + domain
         # strip trailing '.' from names that are already fqdn
         else:
             fqdn = b2i.stripdot(fqdn)
         return fqdn
 
-    # get the zone name (ie: servicemaster.com) from the SOA record
+    # get the domain name (ie: servicemaster.com) from the SOA record
     @staticmethod 
-    def getzone(string):
+    def get_domain(string):
         words = string.split()
         try:
             recordType = words[3]
@@ -37,7 +37,7 @@ class b2i():
 
     # Function to parse bind format lines. Returns lines in InfoBlox CSV format
     @staticmethod
-    def bind2csv(string, zone):
+    def bind2csv(string, domain):
         # Build variables from passed-in line
         
         # split incoming line into a list of words separated by spaces
@@ -60,7 +60,7 @@ class b2i():
 
         # convert shorthand names to fqdn
         if not fqdn.endswith('.'):
-            fqdn = fqdn + '.' + zone
+            fqdn = fqdn + '.' + domain
         # strip trailing '.' from names that are already fqdn
         else:
             fqdn = b2i.stripdot(fqdn)
@@ -115,7 +115,7 @@ class b2i():
 
     def __init__(self, bindInput):
         self.bindInput = bindInput
-        self.zone = ''
+        self.domain = ''
         #self.csvOutput = b2i.bind2csv(bindInput)
         output = list()
         temp = list()
@@ -134,15 +134,15 @@ class b2i():
 
         # determine the domain name we're working with
         for line in temp:
-            result = b2i.getzone(line)
+            result = b2i.get_domain(line)
             if len(result) != 0:
-                self.zone = result[:-1]
+                self.domain = result[:-1]
                 break
 
         # Read inFile and convert it according to bind2csv
         for line in temp:
             # convert to InfoBlox' format
-            newline = b2i.bind2csv(line, self.zone)
+            newline = b2i.bind2csv(line, self.domain)
             # don't append empty lines
             if not newline.isspace():
                 output.append(newline.rstrip() + '\n')		

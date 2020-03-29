@@ -24,7 +24,7 @@ def home():
             converted.csvOutput,
             mimetype="text/csv",
             headers={"Content-disposition":
-                     "attachment; filename=" + converted.zone + ".csv"})
+                     "attachment; filename=" + converted.domain + ".csv"})
     else: 
         return render_template('home.html', form=form, output=output, title='Home')
 
