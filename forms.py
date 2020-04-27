@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
 from wtforms import TextAreaField, StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms.validators import DataRequired, Length, Email, EqualTo, email_validator
 
 class InputForm(FlaskForm):
-    in_string = TextAreaField('Paste in contents of the BIND file you want to convert', validators=[DataRequired])
+    in_string = TextAreaField('Paste in contents of the BIND file you want to convert', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class RegistrationForm(FlaskForm):

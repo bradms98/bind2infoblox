@@ -12,11 +12,13 @@ class b2i():
     @staticmethod 
     def name2fqdn(fqdn,domain):
         # convert shorthand names to fqdn
+        #print('Output: ' + fqdn)
         if not fqdn.endswith('.'):
             fqdn = fqdn + '.' + domain
         # strip trailing '.' from names that are already fqdn
         else:
             fqdn = b2i.stripdot(fqdn)
+        #print('Output: ' + fqdn)
         return fqdn
 
     # get the domain name (ie: servicemaster.com) from the SOA record
