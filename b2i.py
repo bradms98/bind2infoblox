@@ -4,10 +4,7 @@ class b2i():
     # BIND uses trailing .'s in it's addresses, InfoBlox does not
     @staticmethod 
     def stripdot(strAddr):
-        if strAddr.endswith('.'):
-            return strAddr[:-1]
-        else: 
-            return strAddr
+        return strAddr.strip(" .")
 
     @staticmethod 
     def name2fqdn(fqdn,domain):
@@ -33,7 +30,7 @@ class b2i():
         
         # return the fqdn of the SOA record only
         if recordType.upper() == "SOA":
-            return(fqdn)
+            return(b2i.stripdot(fqdn))
         else:
             return()
 
@@ -138,7 +135,7 @@ class b2i():
         for line in temp:
             result = b2i.get_domain(line)
             if len(result) != 0:
-                self.domain = result[:-1]
+                self.domain = result
                 break
 
         # Read inFile and convert it according to bind2csv
