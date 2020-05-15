@@ -1,0 +1,101 @@
+﻿; Domain: gregorypest.com
+; Exported (y-m-d hh:mm:ss): 2020-03-27 08:36:49
+;
+; This file is intended for use for informational and archival
+; purposes ONLY and MUST be edited before use on a production
+; DNS server.
+;
+; In particular, you must update the SOA record with the correct
+; authoritative name server and contact e-mail address information,
+; and add the correct NS records for the name servers which will
+; be authoritative for this domain.
+;
+; For further information, please consult the BIND documentation
+; located on the following website:
+;
+; http://www.isc.org/
+;
+; And RFC 1035:
+;
+; http://www.ietf.org/rfc/rfc1035.txt
+;
+; Please note that we do NOT offer technical support for any use
+; of this zone data, the BIND name server, or any other third-
+; party DNS software.
+;
+; Use at your own risk.
+
+
+; SOA Record
+gregorypest.com.	600	 IN 	SOA	ns01.domaincontrol.com.	dns.jomax.net. (
+					2020030507
+					28800
+					7200
+					604800
+					600
+					) 
+
+; A Records
+@	600	 IN 	A	68.115.181.141
+360	600	 IN 	A	68.115.181.150
+api	600	 IN 	A	68.115.181.149
+asterisk	600	 IN 	A	68.115.181.148
+btc	600	 IN 	A	68.115.181.151
+dns01	600	 IN 	A	68.115.181.132
+dns02	600	 IN 	A	68.115.181.132
+electrum	600	 IN 	A	68.115.181.151
+etherpad	600	 IN 	A	68.115.181.150
+gophish	600	 IN 	A	68.115.181.150
+guidebook	600	 IN 	A	68.115.181.136
+help	600	 IN 	A	68.115.181.137
+helpdesk	600	 IN 	A	68.115.181.150
+jitsi	600	 IN 	A	68.115.181.142
+linksys	600	 IN 	A	68.115.181.150
+mail	600	 IN 	A	68.115.181.144
+map	600	 IN 	A	68.115.181.137
+ms	600	 IN 	A	68.115.181.150
+passwd	600	 IN 	A	68.115.181.150
+password	600	 IN 	A	68.115.181.150
+purple	600	 IN 	A	68.115.181.137
+reset	600	 IN 	A	68.115.181.150
+social	600	 IN 	A	68.115.181.150
+status	600	 IN 	A	68.115.181.150
+survey	600	 IN 	A	68.115.181.150
+urbackup	600	 IN 	A	68.115.181.146
+video	600	 IN 	A	68.115.181.150
+www.api	600	 IN 	A	68.115.181.149
+www.guidebook	600	 IN 	A	68.115.181.136
+www.help	600	 IN 	A	68.115.181.137
+www.purple	600	 IN 	A	68.115.181.137
+xmr	600	 IN 	A	68.115.181.151
+xmrnode	600	 IN 	A	68.115.181.151
+zimbra	600	 IN 	A	68.115.181.141
+
+; CNAME Records
+email	3600	 IN 	CNAME	@
+ftp	3600	 IN 	CNAME	@
+www	3600	 IN 	CNAME	@
+_domainconnect	3600	 IN 	CNAME	_domainconnect.gd.domaincontrol.com.
+
+; MX Records
+@	600	 IN 	MX	0	@
+@	600	 IN 	MX	1	zimbra.gregorypest.com.
+api	600	 IN 	MX	0	api.gregorypest.com.
+mail	600	 IN 	MX	0	mail.gregorypest.com.
+zimbra	600	 IN 	MX	1	@
+zimbra	600	 IN 	MX	1	zimbra.gregorypest.com.
+
+; TXT Records
+
+; SRV Records
+_imaps._tcp.@	600	 IN 	SRV	0	1	993	zimbra.gregorypest.com.
+_submission._tcp.@	600	 IN 	SRV	0	1	587	zimbra.gregorypest.com.
+
+; AAAA Records
+
+; CAA Records
+
+; NS Records
+@	3600	 IN 	NS	ns01.domaincontrol.com.
+@	3600	 IN 	NS	ns02.domaincontrol.com.
+

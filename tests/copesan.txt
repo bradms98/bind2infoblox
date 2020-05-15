@@ -1,0 +1,93 @@
+; Domain: copesan.com.
+; Exported (y-m-d hh:mm:ss): 2020-04-21 10:09:13
+;
+; This file is intended for use for informational and archival
+; purposes ONLY and MUST be edited before use on a production
+; DNS server.
+;
+; In particular, you must update the SOA record with the correct
+; authoritative name server and contact e-mail address information,
+; and add the correct NS records for the name servers which will
+; be authoritative for this domain.
+;
+; For further information, please consult the BIND documentation
+; located on the following website:
+;
+; http://www.isc.org/
+;
+; And RFC 1035:
+;
+; http://www.ietf.org/rfc/rfc1035.txt
+;
+; Please note that we do NOT offer technical support for any use
+; of this zone data, the BIND name server, or any other third-
+; party DNS software.
+;
+; Use at your own risk.
+
+; SOA Record
+copesan.com.		3600	IN	SOA	cbru.br.ns.els-gms.att.net.
+
+; NS Records
+copesan.com	3600	IN		NS	cbru.br.ns.els-gms.att.net.
+copesan.com	3600	IN		NS	cmtu.mt.ns.els-gms.att.net.
+
+;A Records
+*       3600    IN A    75.2.30.5
+faxfinder   3600           IN A    12.151.252.90
+ftp  3600         IN A    12.151.252.73
+handheld 3600              IN A    12.151.252.86
+helpdesk       3600    IN A    4.16.38.234
+localhost    3600          IN A    127.0.0.1
+mail2   3600    IN A    4.16.38.233
+register 3600              IN A    12.151.252.74
+service 3600      IN A    4.16.38.233
+vpn     3600    IN A    4.14.169.242
+www     3600    IN A    75.2.30.5
+
+
+; CNAME Records
+4c742jtdm44ruana4hmugcc6yapom4w3._domainkey   1800    IN CNAME        4c742jtdm44ruana4hmugcc6yapom4w3.dkim.amazonses.com.
+autodiscover   3600    IN CNAME       autodiscover.outlook.com.
+autodiscover.holders   3600    IN CNAME       autodiscover.outlook.com.
+autodiscover.service   60      IN CNAME       autodiscover.outlook.com.
+autodiscover.wil-kil   3600    IN CNAME       autodiscover.outlook.com.
+cdn     3600    IN CNAME       d19hz170w6j7b6.cloudfront.net.
+changepassword  3600      IN CNAME       mail2.copesan.com.
+l64smwxum2tozsubsei34pqa55efythr._domainkey   1800    IN CNAME        l64smwxum2tozsubsei34pqa55efythr.dkim.amazonses.com.
+lyncdiscover   3600       IN CNAME       webdir.online.lync.com.
+lyncdiscover.holders   3600    IN CNAME       webdir.online.lync.com.
+lyncdiscover.wil-kil   3600    IN CNAME       webdir.online.lync.com.
+msoid   3600    IN CNAME       clientconfig.microsoftonline-p.net.
+msoid.holders  3600    IN CNAME       clientconfig.microsoftonline-p.net.
+msoid.wil-kil  3600    IN CNAME       clientconfig.microsoftonline-p.net.
+sip     3600       IN CNAME       sipdir.online.lync.com.
+sip.holders    3600    IN CNAME       sipdir.online.lync.com.
+sip.wil-kil    3600    IN CNAME       sipdir.online.lync.com.
+webmail   3600    IN CNAME       mail.office365.com.
+xoldmnbuucqwm3xmphehavdyiqkvjoahho2o._domainkey      1800    IN CNAME        mnbuucqwm3xmphehavdyiqkvjoahho2o.dkim.amazonses.com.
+
+; TXT Records
+@       3600     IN TXT  "v=spf1 ip4:4.14.169.240/28 ip4:4.16.38.224/28 ip4:24.225.8.70 include:spf.protection.outlook.com -all"
+@      3600      IN TXT        "rau77d5e37pun65bk3wmclyroadmgzcb._domainkey.copesan.com,CNAME,rau77d5e37pun65bk3wmclyroadmgzcb.dkim.amazonses.com"
+_amazonses     1800    IN TXT  "59klqOW81a6UodfqF40CWQEbLq61JwnPH4aB6zKVjF8="
+holders 3600    IN TXT  "v=spf1 include:spf.protection.outlook.com -all"
+wil-kil 3600    IN TXT  "v=spf1 include:spf.protection.outlook.com -all"
+
+
+; SRV Records
+@       3600    IN SRV  100 1 5061 sipfed.online.lync.com.
+holders 3600    IN SRV  100 1 443 sipdir.online.lync.com.
+holders 3600    IN SRV  100 1 5061 sipfed.online.lync.com.
+wil-kil 60      IN SRV  100 1 443 sipdir.online.lync.com.
+wil-kil 60      IN SRV  100 1 5061 sipfed.online.lync.com.
+
+; AAAA Records
+
+; CAA Records
+
+; MX Records
+	600	IN		MX	100 copesan-com.mail.protection.outlook.com.
+
+
+
