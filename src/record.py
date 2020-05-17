@@ -25,6 +25,10 @@ class Record:
     Please reference:
     https://tools.ietf.org/html/rfc1035
     https://help.dyn.com/how-to-format-a-zone-file/
+
+    This class support doctest. See: https://docs.python.org/3/library/doctest.html
+    Run automated tests with:
+        python -m doctest -v .\record.py
     """
 
     #private data
@@ -54,6 +58,18 @@ class Record:
     def bind_format(self):
         """
         Returns a string formatted as you would see in a zone file for a BIND style DNS server
+        >>> c = Record('webmail', 'cName', 'mail.example.com')
+        >>> c.bind_format()
+        'webmail\\t3600\\tIN\\tCNAME\\tmail.example.com'
+        >>> m = Record('mail', 'MX', 'mail.example.com')
+        >>> m.bind_format()
+        'mail\\t3600\\tIN\\tMX\\t100\\tmail.example.com'
+        >>> m = Record('mail', 'MX', 'mail.example.com', priority = 200)
+        >>> m.bind_format()
+        'mail\\t3600\\tIN\\tMX\\t200\\tmail.example.com'
+        >>> s = Record('service', 'sRV ', 'myservice.example2.com', ttl=600, priority=200, port=443, weight=2)
+        >>> s.bind_format()
+        'service\\t600\\tIN\\tSRV\\tmyservice.example2.com'
         """
         if self.record_type == 'MX':
             return (f"{self.name}\t{self.ttl}\t{self.record_class}\t{self.record_type}\t{self.priority}\t{self.data}")
@@ -65,12 +81,27 @@ class Record:
     def infoblox_format(self, base_domain=''):
         """
         Returns a string formatted as needed by an Infoblox CSV import file.
+        >>> a = Record('*', 'a', '1.2.3.4', 'example.com')
+        >>> a.infoblox_format()
+        'arecord,1.2.3.4,,*.example.com,,,FALSE,STATIC,,FALSE,FALSE,3600,External'
+        >>> c = Record('sip', 'CName', 'sipdir.online.example.com', base_domain='example.com')
+        >>> c.infoblox_format()
+        'cnamerecord,sip.example.com,,sipdir.online.example.com,,STATIC,,FALSE,FALSE,3600,External,,,,,,,,,,,,,'
+        >>> m = Record('@', 'MX', 'example-com.mail.protection.example.com', ttl=600, base_domain='example.com')
+        >>> m.infoblox_format()
+        'mxrecord,@.example.com,,example-com.mail.protection.example.com,,100,,,STATIC,,FALSE,FALSE,600,External,,,,,,,,,,'
+        >>> s = Record('@', 'SRV', 'sipfed.online.example.com', port=5061, base_domain='example.com')
+        >>> s.infoblox_format()
+        'srvrecord,@.example.com,,5061,,100,,sipfed.online.example.com,,1,,,STATIC,,FALSE,FALSE,3600,External,,,,,,'
+        >>> t = Record('txttest', 'TXT', '\"\"\"v=spf1 include:spf.protection.example.com -all\"\"\"', base_domain='example.com')
+        >>> t.infoblox_format()
+        'txtrecord,txttest.example.com,,\"\"\"v=spf1 include:spf.protection.example.com -all\"\"\",,,STATIC,,FALSE,FALSE,3600,External,,,,,,,,,,,,'
         """
         if len(base_domain) > 0:
             self.set_base_domain(base_domain)
 
         assert(len(self.base_domain) > 0), (f"base_domain is required when using infoblox format")
-        # A records
+
         if self.record_type == "A":
             return (f"arecord,{self.data},,{self.fqdn},,,FALSE,STATIC,,FALSE,FALSE,{self.ttl},External")
         elif self.record_type == "CNAME":
@@ -83,15 +114,15 @@ class Record:
             return (f"txtrecord,{self.fqdn},,{self.data},,,STATIC,,FALSE,FALSE,{self.ttl},External,,,,,,,,,,,,")
 
     def set_name(self, name):
-        assert(len(name) > 0), (f"Record name cannot be empty")
+        assert(len(name.strip().strip('.')) > 0), (f"Record name cannot be empty")
         self.name = name.strip().strip('.').lower()
 
     def set_type(self, record_type):
-        assert(record_type.upper() in self._supported_types), (f"Record Type '{record_type.upper()}' is not supported")
+        assert(record_type.strip().upper() in self._supported_types), (f"Record Type '{record_type.upper()}' is not supported")
         self.record_type = record_type.strip().upper()
 
     def set_data(self, data):
-        assert(len(data) > 0), (f"Record data cannot be empty")
+        assert(len(data.strip()) > 0), (f"Record data cannot be empty")
         self.data = data.strip()
 
     def set_base_domain(self, base_domain):
