@@ -26,7 +26,7 @@ class Record:
     https://tools.ietf.org/html/rfc1035
     https://help.dyn.com/how-to-format-a-zone-file/
 
-    This class support doctest. See: https://docs.python.org/3/library/doctest.html
+    This class supports doctest. See: https://docs.python.org/3/library/doctest.html
     Run automated tests with:
         python -m doctest -v .\record.py
     """
@@ -132,6 +132,9 @@ class Record:
     def __repr__(self, format='bind'):
         """
         Return information about a Record object in a format like BIND would use
+        Possible values of 'format':
+          bind
+          infoblox
         """
         if format.lower() == 'infoblox':
             return self.infoblox_format()
